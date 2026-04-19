@@ -1,0 +1,16 @@
+name: CI Pipeline
+on: [push]
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Debug CI config
+        run: |
+          echo "Running with CODECOV_TOKEN=$CODECOV_TOKEN"
+          echo "Repo: ${{ github.repository }}"
+      - name: Upload coverage
+        run: |
+          bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
